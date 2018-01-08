@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 18.01.07
+        Version: 18.01.08
 ]]
 
 
@@ -37,7 +37,22 @@ dc.commands.CSAY = CSay
 dc.commands.SAY = CSay
 dc.commands.BYE = function () quitdontask = true; love.event.quit() end
 dc.commands.EXIT = dc.commands.BYE
+dc.commands.FUCK = function () console.writeln("Do you want your mother to hear you say such words?") end
+dc.commands.SHIT = dc.commands.FUCK
 
+function dc.commands.FULLSTATS(ch)
+    if not rpg:CharExists(ch) then 
+       console.write  ("ERROR! ",255,0,0)
+       console.writeln("Character '"..ch.."' does not exist")
+       return
+    end
+    local lst = rpg:StatFields(ch)
+    for k in each(lst) do
+        console.write  (k,255,255,0)
+        console.write  (" = ",255,0,0)
+        console.writeln(rpg:Stat(ch,k),0,255,255)
+    end    
+end
 
 dc.draw = console.show
 
@@ -67,11 +82,11 @@ function dc.keypressed(keycode,scan)
               cmd=c
               para = ""
            end
-           local ucmd = upper(cmd)
+           local ucmd = upper(cmd or '') -- No nil
            if dc.commands[ucmd] then
               dc.commands[ucmd](para)
            else
-              console.write("I don't understand the command: "..cmd)
+              console.writeln("I don't understand the command: "..cmd,255,0,0)
            end
          end            
 end
