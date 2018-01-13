@@ -106,9 +106,12 @@ function laura.setlevel(ch,level)
        end
        rpg:Points(ch,"HP",1).MaxCopy="END_HP"
        rpg:Points(ch,"AP",1).MaxCopy="END_AP"
+       rpg:Points(ch,"VIT",1).Maximum=100
        rpg:Points(ch,"HP").Have=rpg:Points(ch,"HP").Maximum
        rpg:Points(ch,"AP").Have=rpg:Points(ch,"AP").Maximum
+       rpg:Points(ch,"VIT").Have=rpg:Points(ch,"VIT").Maximum
        CSay(ch.." has "..rpg:Points(ch,"HP").Have.."/"..rpg:Points(ch,"HP").Maximum.." Hit Points")
        CSay(ch.." has "..rpg:Points(ch,"AP").Have.."/"..rpg:Points(ch,"AP").Maximum.." Ability Points")
+       CSay(ch.." has "..rpg:Points(ch,"VIT").Have.."/"..rpg:Points(ch,"VIT").Maximum.." Vitality Points")
 end
 return laura

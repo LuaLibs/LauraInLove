@@ -37,6 +37,7 @@ dc.commands.CSAY = CSay
 dc.commands.SAY = CSay
 dc.commands.BYE = function () quitdontask = true; love.event.quit() end
 dc.commands.EXIT = dc.commands.BYE
+dc.commands.QUIT = dc.commands.BYE
 dc.commands.FUCK = function () console.writeln("Do you want your mother to hear you say such words?") end
 dc.commands.SHIT = dc.commands.FUCK
 
@@ -53,6 +54,16 @@ function dc.commands.FULLSTATS(ch)
         console.writeln(rpg:Stat(ch,k),0,255,255)
     end    
 end
+
+dc.commands.VARS = function()
+     local k=mysplit(VarList(),"\n")
+     for i,v in ipairs(k) do
+       local r=255
+       local g=0
+       local b=math.floor((i/#k)*255)
+       console.writeln(v,r,g,b)
+     end
+end        
 
 dc.draw = console.show
 
@@ -82,8 +93,10 @@ function dc.keypressed(keycode,scan)
               cmd=c
               para = ""
            end
-           local ucmd = upper(cmd or '') -- No nil
-           if dc.commands[ucmd] then
+           local ucmd = upper(cmd or '') -- No nil           
+           if dc.backflow.consolecommands and dc.backflow.consolecommands[ucmd] then
+              dc.backflow.consolecommands[ucmd](dc.backflow,para)
+           elseif dc.commands[ucmd] then
               dc.commands[ucmd](para)
            else
               console.writeln("I don't understand the command: "..cmd,255,0,0)
