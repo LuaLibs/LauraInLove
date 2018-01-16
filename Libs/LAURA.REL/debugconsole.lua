@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 18.01.08
+        Version: 18.01.16
 ]]
 
 
@@ -40,6 +40,7 @@ dc.commands.EXIT = dc.commands.BYE
 dc.commands.QUIT = dc.commands.BYE
 dc.commands.FUCK = function () console.writeln("Do you want your mother to hear you say such words?") end
 dc.commands.SHIT = dc.commands.FUCK
+dc.commands.RYANNA = function() for k,v in spairs(Ryanna) do console.write(k..": ",255,255,0) console.writeln(v,0,255,255) end end
 
 function dc.commands.FULLSTATS(ch)
     if not rpg:CharExists(ch) then 
