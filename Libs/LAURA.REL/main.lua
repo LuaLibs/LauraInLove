@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 18.01.16
+        Version: 18.01.17
 ]]
 
 -- LAURA in LOVE
@@ -85,6 +85,10 @@ function laura.makechar(name,level)
     end
 end
 
+function laura.nextlevel(level) -- This is a base routine. You can use any routine you want for this!
+    return level * level * level
+end    
+
 function laura.setlevel(ch,level)
        local lvllines = JCR_Lines("Data/Levels/"..ch)
        local scanlevel
@@ -113,5 +117,7 @@ function laura.setlevel(ch,level)
        CSay(ch.." has "..rpg:Points(ch,"HP").Have.."/"..rpg:Points(ch,"HP").Maximum.." Hit Points")
        CSay(ch.." has "..rpg:Points(ch,"AP").Have.."/"..rpg:Points(ch,"AP").Maximum.." Ability Points")
        CSay(ch.." has "..rpg:Points(ch,"VIT").Have.."/"..rpg:Points(ch,"VIT").Maximum.." Vitality Points")
+       rpg:DefStat(ch,"Level",level)
+       rpg:DefStat(ch,"Experience",nextlevel(level+1))
 end
 return laura
