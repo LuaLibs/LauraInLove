@@ -6,7 +6,7 @@
 	Mozilla Public License, v. 2.0. If a copy of the MPL was not 
 	distributed with this file, You can obtain one at 
 	http://mozilla.org/MPL/2.0/.
-        Version: 18.01.08
+        Version: 18.01.27
 ]]
 local chars={}
 --[[
@@ -33,6 +33,18 @@ function chars.Stat(ch,st)
     return ret
 end
 
+function chars.Enemy(ch,st)
+    local prefs = {"BASE_","BUFF_"}
+    if not laura.assert(prefixed(st,"END_"),"Illegal Stat",{ch=ch,st=st}) then return 0 end
+    local stat = right(st,#st-4)
+    local ret = 0
+    for k in each(prefs) do
+        local keer = 1
+        --if k=="DEBUFF_" then keer=0-1 end
+        ret = ret + ( rpg:Stat(ch,k..stat) * keer )        
+    end 
+    return ret
+end
 chars.stat=chars.Stat
 
 return chars
